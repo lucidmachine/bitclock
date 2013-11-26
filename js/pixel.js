@@ -23,6 +23,9 @@ var Pixel = function (clock, x, y) {
 }
 
 Pixel.prototype = {
+    /**
+     * Draws the Pixel to the canvas.
+     */
     draw: function () {
         // Set fill
         this.ctx.fillStyle = this.isOn ? this.COLOR_ON : this.COLOR_OFF;

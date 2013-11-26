@@ -10,7 +10,7 @@ var Clock = function () {
 
     // Time
     this.time = new Date();
-    this.interval = window.setInterval(this.tick.bind(this), 1000);
+    this.interval = window.setInterval(this.onTick.bind(this), 1000);
 
     // Pixels
     this.pixels = [
@@ -26,7 +26,12 @@ var Clock = function () {
 }
 
 Clock.prototype = {
-    tick: function () {
+    /**
+     * Handles the clock tick event.
+     *
+     * Updates the state and UI when the minute changes.
+     */
+    onTick: function () {
         // Get new time
         this.time = new Date();
 
@@ -37,6 +42,9 @@ Clock.prototype = {
         }
     },
 
+    /**
+     * Updates the state of the clock and its pixels.
+     */
     update: function () {
         // Get decimal digits as binary strings
         var binaryStrings = [];
@@ -64,11 +72,21 @@ Clock.prototype = {
         }
     },
 
+    /**
+     * Draws the clock.
+     *
+     * Draws the clock to the canvas and favicon.
+     */
     draw: function () {
         this.drawCanvas();
         this.drawFavicon();
     },
 
+    /**
+     * Draws the clock to the canvas.
+     *
+     * Runs draw() on each pixel in the pixels 2D array.
+     */
     drawCanvas: function () {
         this.pixels.forEach(function (row) {
             row.forEach(function (pixel) {
@@ -77,6 +95,11 @@ Clock.prototype = {
         });
     },
 
+    /**
+     * Draws the clock to the favicon.
+     *
+     * Converts the canvas to an image and sets the favicon to that image.
+     */
     drawFavicon: function () {
 
     }
