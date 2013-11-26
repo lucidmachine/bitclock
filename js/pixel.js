@@ -23,17 +23,6 @@ var Pixel = function (clock, x, y) {
 }
 
 Pixel.prototype = {
-    update: function (time) {
-        if ((this.x % 2) == 0) {
-            this.isOn = true;
-        }
-        if ((this.y % 2) == 0) {
-            this.isOn = !this.isOn;
-        }
-
-
-    },
-
     draw: function () {
         // Set fill
         this.ctx.fillStyle = this.isOn ? this.COLOR_ON : this.COLOR_OFF;
