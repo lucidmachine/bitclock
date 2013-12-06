@@ -101,11 +101,15 @@ Clock.prototype = {
      * Converts the canvas to an image and sets the favicon to that image.
      */
     drawFavicon: function () {
-        // Convert canvas to img
-        var imgSrc = this.canvas.toDataURL();
+        // Get current favicon
+        var icon = document.getElementById('favicon');
 
-        // Set favicon
-        document.getElementById('favicon').href = imgSrc;
+        // Create new icon
+        var newIcon = icon.cloneNode(true);
+        newIcon.href = this.canvas.toDataURL();
+
+        // Replace current favicon with updated favicon
+        icon.parentNode.replaceChild(newIcon, icon);
     }
 }
 
