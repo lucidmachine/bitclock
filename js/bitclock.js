@@ -45,8 +45,6 @@ const updateClockDivs = bitTime =>
         updateClockDiv(clockDiv, bitTime));
 
 // Frontend - Canvas
-const width = 50;
-const height = 50;
 const colorOn = 'rgb(255, 255, 255)';
 const colorOff = 'rgb(0, 0, 0)';
 const fillStyle = (bit, colorOn, colorOff) =>
@@ -71,8 +69,15 @@ const getCanvas = () =>
 const getCanvasContext = () =>
     getCanvas().getContext('2d');
 const updateCanvas = bitTime => {
-    getCanvas().style.display = 'none';
-    drawCanvas(getCanvasContext(), bitTime, width, height, colorOn, colorOff);
+    const bitTimeWithoutSeconds = bitTime.slice(0, 4);
+    const canvas = getCanvas();
+    const canvasContext = getCanvasContext();
+
+    canvas.style.display = 'none';
+    const bitWidth = canvas.width / bitTimeWithoutSeconds.length;
+    const bitHeight = canvas.height / bitTimeWithoutSeconds[0].length;
+
+    drawCanvas(canvasContext, bitTimeWithoutSeconds, bitWidth, bitHeight, colorOn, colorOff);
 };
 
 // Frontend - Favicon
@@ -88,8 +93,9 @@ const updateFavicon = () => {
 // Timer
 const update = () => {
     const currentBitTime = getCurrentBitTime();
-    console.log(currentBitTime);
+
     updateClockDivs(currentBitTime);
+
     updateCanvas(currentBitTime);
     updateFavicon();
 };
