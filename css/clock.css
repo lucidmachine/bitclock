@@ -1,3 +1,40 @@
-#clock {
+html, body, .clock-div, .digit, .bit {
+    display: flex;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.clock-div {
+    flex: 1 1 auto;
     border: 2px solid black;
+    z-index: 2;
+}
+
+.digit {
+    flex: 1 1 auto;
+    flex-direction: column;
+}
+
+.bit {
+    border: 2px solid black;
+    flex: 1 1 2px;
+    text-align: center;
+}
+
+.bit.on {
+    background: white;
+    color: white;
+}
+
+.bit.off {
+    background: black;
+    color: black;
+}
+
+.clock-canvas {
+    display: none;
+    z-index: -1;
 }
