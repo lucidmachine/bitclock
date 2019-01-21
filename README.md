@@ -1,8 +1,6 @@
 # Bitclock
 [Bitclock](https://lucidmachine.github.io/bitclock/) is a clock made of binary integers to help you practice reading binary.
 
-<iframe src="https://lucidmachine.github.io/bitclock/"></iframe>
-
 # Reading
 <pre>
 For each digit from left to right compute the sum:
