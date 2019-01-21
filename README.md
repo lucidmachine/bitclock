@@ -7,6 +7,7 @@ For each digit from left to right compute the sum:
     For each value place from top to bottom, 8 to 1:
         If the bit is on then add that value to the sum.
 </pre>
+![Interpretation](img/interpretation.png)
 
 # Architecture
 ## Data Structures
