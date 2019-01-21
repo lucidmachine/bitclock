@@ -33,8 +33,3 @@ html, body {
     background: black;
     color: black;
 }
-
-.clock-canvas {
-    display: none;
-    z-index: -1;
-}
