@@ -1,5 +1,7 @@
 # Bitclock
-Bitclock is a clock made of binary integers to help you practice reading binary.
+[Bitclock](https://lucidmachine.github.io/bitclock/) is a clock made of binary integers to help you practice reading binary.
+
+<iframe src="https://lucidmachine.github.io/bitclock/"></iframe>
 
 # Reading
 <pre>
