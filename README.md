@@ -22,12 +22,14 @@ A BitDigit is an array of 4 bits which represents a single digit. Positions in t
 ### BitTime
 A BitTime is an array of BitDigits. Each item is a digit in the current time read left to right.
 ```
-// 12:34
+// 12:34:56
 [
   [0, 0, 0, 1],  // 0 + 0 + 0 + 1 = 1
   [0, 0, 1, 0],  // 0 + 0 + 2 + 0 = 2
   [0, 0, 1, 1],  // 0 + 0 + 2 + 1 = 3
-  [0, 1, 0, 0]   // 0 + 1 + 0 + 0 = 4
+  [0, 1, 0, 0],  // 0 + 1 + 0 + 0 = 4
+  [0, 1, 0, 1],  // 0 + 1 + 0 + 1 = 5
+  [0, 1, 1, 0]   // 0 + 1 + 1 + 0 = 6
 ]
 ```
 
