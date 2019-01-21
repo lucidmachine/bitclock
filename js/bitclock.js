@@ -10,51 +10,69 @@ const timeAsDigits = time => [
     onesDigit(time.getSeconds()),
 ];
 
-// Transform an array of digits into an array of arrays of bits
-const bitmasks = [8, 4, 2, 1];
-const digitAsBitArray = digit => bitmasks.map(mask => mask & digit);
-const timeAs2dBitArray = date =>
+// Transform an array of digits into a BitTime
+const placeValues = [8, 4, 2, 1];
+const isBitActive = (placeValue, digit) => (placeValue & digit) > 0;
+const bitDigit = digit =>
+    placeValues
+    .map(placeValue =>
+        isBitActive(placeValue, digit) ?
+            1 :
+            0);
+const bitTime = date =>
     timeAsDigits(date)
-    .map(digit => digitAsBitArray(digit));
+    .map(digit =>
+        bitDigit(digit));
+
+// Get current BitTime
+const getCurrentBitTime = () => bitTime(new Date());
 
 // Frontend - DOM Manipulation
-const clockDiv = timeMatrix =>
-    timeMatrix.map(digit =>
+const clockDiv = bitTime =>
+    bitTime.map(bitDigit =>
         [
             '<div class="digit">',
-            digit.map(bit => `<div class="bit ${bit ? 'on' : 'off'}">${bit}</div>`).join(''),
+            bitDigit.map(bit =>
+                `<div class="bit ${bit ? 'on' : 'off'}">${bit}</div>`).join(''),
             '</div>'
         ].join('')
     ).join('');
-const updateClockDiv = (clockElement, timeMatrix) => clockElement.innerHTML = clockDiv(timeMatrix);
-const updateClockDivs = timeMatrix =>
+const updateClockDiv = (clockElement, bitTime) =>
+    clockElement.innerHTML = clockDiv(bitTime);
+const updateClockDivs = bitTime =>
     Array.from(document.getElementsByClassName('clock-div'))
-    .forEach(clockDiv => updateClockDiv(clockDiv, timeMatrix));
+    .forEach(clockDiv =>
+        updateClockDiv(clockDiv, bitTime));
 
 // Frontend - Canvas
 const width = 50;
 const height = 50;
 const colorOn = 'rgb(255, 255, 255)';
 const colorOff = 'rgb(0, 0, 0)';
-const fillStyle = (bit, colorOn, colorOff) => bit ? colorOn : colorOff;
+const fillStyle = (bit, colorOn, colorOff) =>
+    bit ?
+        colorOn :
+        colorOff;
 const drawBit = (canvasContext, bit, x, y, width, height, colorOn, colorOff) => {
     canvasContext.fillStyle = fillStyle(bit, colorOn, colorOff);
     canvasContext.fillRect(x * width, y * height, width, height);
 };
-const drawCanvas = (canvasContext, timeMatrix, bitWidth, bitHeight, bitColorOn, bitColorOff) => {
+const drawCanvas = (canvasContext, bitTime, bitWidth, bitHeight, bitColorOn, bitColorOff) => {
     canvasContext.clearRect(0, 0, canvasContext.width, canvasContext.height);
 
-    timeMatrix.forEach((digit, x) => {
+    bitTime.forEach((digit, x) => {
         digit.forEach((bit, y) => {
             drawBit(canvasContext, bit, x, y, bitWidth, bitHeight, bitColorOn, bitColorOff);
         });
     });
 };
-const getCanvas = () => document.getElementById('clock-canvas');
-const getCanvasContext = () => getCanvas().getContext('2d');
-const updateCanvas = timeMatrix => {
+const getCanvas = () =>
+    document.getElementById('clock-canvas');
+const getCanvasContext = () =>
+    getCanvas().getContext('2d');
+const updateCanvas = bitTime => {
     getCanvas().style.display = 'none';
-    drawCanvas(getCanvasContext(), timeMatrix, width, height, colorOn, colorOff);
+    drawCanvas(getCanvasContext(), bitTime, width, height, colorOn, colorOff);
 };
 
 // Frontend - Favicon
@@ -69,9 +87,10 @@ const updateFavicon = () => {
 
 // Timer
 const update = () => {
-    const currentTimeAs2dBitArray = timeAs2dBitArray(new Date());
-    updateClockDivs(currentTimeAs2dBitArray);
-    updateCanvas(currentTimeAs2dBitArray);
+    const currentBitTime = getCurrentBitTime();
+    console.log(currentBitTime);
+    updateClockDivs(currentBitTime);
+    updateCanvas(currentBitTime);
     updateFavicon();
 };
 setInterval(update, 1000);
