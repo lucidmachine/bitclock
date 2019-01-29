@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A clock made of binary integers to help you practice reading binary.",
   "private": true,
-  "main": "index.js",
   "scripts": {
     "build": "webpack",
     "clean": "rm -rf node_modules && rm dist/main.js",
