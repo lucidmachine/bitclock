@@ -3,7 +3,6 @@ import { updateClockDivs } from "./js/bitclock-frontend-dom";
 import { updateCanvas } from "./js/bitclock-frontend-canvas";
 import { updateFavicon} from "./js/bitclock-frontend-favicon";
 
-// Timer
 const update = () => {
     const currentBitTime = getCurrentBitTime();
 

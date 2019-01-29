@@ -1,4 +1,3 @@
-// Slice a time up into individual digits
 const tensDigit = num =>
     Math.floor(num / 10);
 
@@ -14,7 +13,6 @@ const timeAsDigits = time => [
     onesDigit(time.getSeconds()),
 ];
 
-// Transform an array of digits into a BitTime
 const placeValues = [8, 4, 2, 1];
 
 const isBitActive = (placeValue, digit) =>
@@ -32,7 +30,6 @@ const bitTime = date =>
         .map(digit =>
             bitDigit(digit));
 
-// Get current BitTime
 const getCurrentBitTime = () =>
     bitTime(new Date());
 
