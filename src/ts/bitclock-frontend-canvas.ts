@@ -1,3 +1,5 @@
+import {BitDigit, BitTime, UpdateFn} from './bitclock';
+
 const colorOn = 'rgb(255, 255, 255)';
 const colorOff = 'rgb(0, 0, 0)';
 
@@ -11,11 +13,11 @@ const drawBit = (ctx: CanvasRenderingContext2D, bit: number, x: number, y: numbe
     ctx.fillRect(x * width, y * height, width, height);
 };
 
-const drawCanvas = (canvas: HTMLCanvasElement, bitTime: any, bitWidth: number, bitHeight: number, bitColorOn: string, bitColorOff: string): void => {
+const drawCanvas = (canvas: HTMLCanvasElement, bitTime: BitTime, bitWidth: number, bitHeight: number, bitColorOn: string, bitColorOff: string): void => {
     const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    bitTime.forEach((bitDigit: any, x: number) => {
+    bitTime.forEach((bitDigit: BitDigit, x: number) => {
         bitDigit.forEach((bit: number, y: number) => {
             drawBit(ctx, bit, x, y, bitWidth, bitHeight, bitColorOn, bitColorOff);
         });
@@ -25,7 +27,7 @@ const drawCanvas = (canvas: HTMLCanvasElement, bitTime: any, bitWidth: number, b
 const getCanvas = (): HTMLCanvasElement =>
     <HTMLCanvasElement> document.getElementById('clock-canvas');
 
-const updateCanvas = (bitTime: any): void => {
+const updateCanvas: UpdateFn = (bitTime: BitTime): void => {
     const bitTimeWithoutSeconds = bitTime.slice(0, 4);
     const canvas = getCanvas();
 
@@ -36,4 +38,4 @@ const updateCanvas = (bitTime: any): void => {
     drawCanvas(canvas, bitTimeWithoutSeconds, bitWidth, bitHeight, colorOn, colorOff);
 };
 
-export { getCanvas, updateCanvas };
+export { getCanvas, updateCanvas as update };

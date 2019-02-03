@@ -1,3 +1,5 @@
+import {BitDigit, BitTime} from './bitclock';
+
 const tensDigit = (num: number): number =>
     Math.floor(num / 10);
 
@@ -18,19 +20,17 @@ const placeValues = [8, 4, 2, 1];
 const isBitActive = (placeValue: number, digit: number): boolean =>
     (placeValue & digit) > 0;
 
-const bitDigit = (digit: number): any =>
-    placeValues
-        .map(placeValue =>
-            isBitActive(placeValue, digit) ?
-                1 :
-                0);
+const bitDigit = (digit: number): BitDigit =>
+    placeValues.map(placeValue =>
+        isBitActive(placeValue, digit) ?
+            1 :
+            0);
 
-const bitTime = (date: Date): any =>
-    timeAsDigits(date)
-        .map(digit =>
-            bitDigit(digit));
+const bitTime = (date: Date): BitTime =>
+    timeAsDigits(date).map((digit: number) =>
+        bitDigit(digit));
 
-const getCurrentBitTime = (): any =>
+const getCurrentBitTime = (): BitTime =>
     bitTime(new Date());
 
 export { bitDigit, bitTime, getCurrentBitTime };

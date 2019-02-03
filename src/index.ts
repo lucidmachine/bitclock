@@ -1,17 +1,13 @@
 import { getCurrentBitTime } from './ts/bitclock-backend';
-import { updateClockDivs } from './ts/bitclock-frontend-dom';
-import { updateCanvas } from './ts/bitclock-frontend-canvas';
-import { updateFavicon} from './ts/bitclock-frontend-favicon';
+import { update as updateClockDivs } from './ts/bitclock-frontend-dom';
+import { update as updateFavicon} from './ts/bitclock-frontend-favicon';
 
-const update = () => {
+const updateAll = () => {
     const currentBitTime = getCurrentBitTime();
 
-
     updateClockDivs(currentBitTime);
-
-    updateCanvas(currentBitTime);
-    updateFavicon();
+    updateFavicon(currentBitTime);
 };
 
-setInterval(update, 1000);
-update();
+setInterval(updateAll, 1000);
+updateAll();
