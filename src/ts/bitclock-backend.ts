@@ -1,10 +1,10 @@
-const tensDigit = num =>
+const tensDigit = (num: number): number =>
     Math.floor(num / 10);
 
-const onesDigit = num =>
+const onesDigit = (num: number): number =>
     num % 10;
 
-const timeAsDigits = time => [
+const timeAsDigits = (time: Date): number[] => [
     tensDigit(time.getHours()),
     onesDigit(time.getHours()),
     tensDigit(time.getMinutes()),
@@ -15,22 +15,22 @@ const timeAsDigits = time => [
 
 const placeValues = [8, 4, 2, 1];
 
-const isBitActive = (placeValue, digit) =>
+const isBitActive = (placeValue: number, digit: number): boolean =>
     (placeValue & digit) > 0;
 
-const bitDigit = digit =>
+const bitDigit = (digit: number): any =>
     placeValues
         .map(placeValue =>
             isBitActive(placeValue, digit) ?
                 1 :
                 0);
 
-const bitTime = date =>
+const bitTime = (date: Date): any =>
     timeAsDigits(date)
         .map(digit =>
             bitDigit(digit));
 
-const getCurrentBitTime = () =>
+const getCurrentBitTime = (): any =>
     bitTime(new Date());
 
 export { bitDigit, bitTime, getCurrentBitTime };

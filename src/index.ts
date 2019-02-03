@@ -1,7 +1,7 @@
-import { getCurrentBitTime } from './js/bitclock-backend';
-import { updateClockDivs } from './js/bitclock-frontend-dom';
-import { updateCanvas } from './js/bitclock-frontend-canvas';
-import { updateFavicon} from './js/bitclock-frontend-favicon';
+import { getCurrentBitTime } from './ts/bitclock-backend';
+import { updateClockDivs } from './ts/bitclock-frontend-dom';
+import { updateCanvas } from './ts/bitclock-frontend-canvas';
+import { updateFavicon} from './ts/bitclock-frontend-favicon';
 
 const update = () => {
     const currentBitTime = getCurrentBitTime();
