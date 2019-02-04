@@ -1,6 +1,7 @@
 export type Bit = 0 | 1;
-export type BitDigit = Bit[4];
-export type BitTime = BitDigit[4|6];
+export type BitDigit = [Bit, Bit, Bit, Bit];
+export type BitTime = BitDigit[];
+
 
 export interface UpdateFn {
     (bitTime: BitTime): void;

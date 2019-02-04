@@ -1,4 +1,4 @@
-import {BitDigit, BitTime} from './bitclock';
+import {Bit, BitDigit, BitTime} from './bitclock';
 
 const tensDigit = (num: number): number =>
     Math.floor(num / 10);
@@ -15,16 +15,18 @@ const timeAsDigits = (time: Date): number[] => [
     onesDigit(time.getSeconds()),
 ];
 
-const placeValues = [8, 4, 2, 1];
-
 const isBitActive = (placeValue: number, digit: number): boolean =>
     (placeValue & digit) > 0;
 
-const bitDigit = (digit: number): BitDigit =>
-    placeValues.map(placeValue =>
-        isBitActive(placeValue, digit) ?
-            1 :
-            0);
+const bit = (placeValue: number, digit: number): Bit =>
+    isBitActive(placeValue, digit) ? 1 : 0;
+
+const bitDigit = (digit: number): BitDigit => [
+    bit(8, digit),
+    bit(4, digit),
+    bit(2, digit),
+    bit(1, digit)
+];
 
 const bitTime = (date: Date): BitTime =>
     timeAsDigits(date).map((digit: number) =>
