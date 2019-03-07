@@ -2,37 +2,97 @@
   "name": "bitclock",
   "version": "1.0.0",
   "description": "A clock made of binary integers to help you practice reading binary.",
+  "author": "Eric Slenk <lucid.machine@gmail.com>",
+  "license": "MIT",
   "private": true,
-  "scripts": {
-    "build": "webpack",
-    "clean": "rm -rf node_modules && rm dist/main.js",
-    "reinstall": "npm run clean && npm install",
-    "rebuild": "npm run clean && npm install && npm run build"
-  },
+  "keywords": [
+    "bitclock",
+    "binary",
+    "clock"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lucidmachine/bitclock.git"
   },
-  "keywords": [
-    "bitclock",
-    "clock"
-  ],
-  "author": "Eric Slenk <lucid.machine@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lucidmachine/bitclock/issues"
-  },
   "homepage": "https://github.com/lucidmachine/bitclock#readme",
+  "bugs": "https://github.com/lucidmachine/bitclock/issues",
+  "scripts": {
+    "info": "npm-scripts-info",
+    "build": "run-s clean && run-p build:*",
+    "build:webpack": "webpack",
+    "fix": "run-s fix:*",
+    "fix:prettier": "prettier \"src/**/*.ts\" --write",
+    "fix:tslint": "tslint --fix --project .",
+    "test": "run-s build test:*",
+    "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
+    "test:unit": "jest",
+    "watch": "run-s clean build:webpack && run-p \"build:webpack-- -w\" \"test:unit -- --watch\"",
+    "cov": "run-s build cov:build && opn build/coverage/index.html",
+    "cov:build": "jest --coverage",
+    "cov:send": "codecov",
+    "doc": "run-s doc:html && opn build/docs/index.html",
+    "doc:html": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --out build/docs",
+    "doc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json build/docs/typedoc.json",
+    "publish": "run-s build && gh-pages -m \"[ci skip] Updates\" -d dist",
+    "version": "standard-version",
+    "reset": "git clean -dfx && git reset --hard && npm i",
+    "clean": "trash build test",
+    "all": "run-s reset test doc:html",
+    "prepare-release": "run-s all version publish"
+  },
+  "scripts-info": {
+    "info": "Display information about the package scripts",
+    "build": "Clean and rebuild the project",
+    "fix": "Try to automatically fix any linting problems",
+    "test": "Lint and unit test the project",
+    "watch": "Watch and rebuild the project on save, then rerun relevant tests",
+    "cov": "Rebuild, run tests, then create and open the coverage report",
+    "doc": "Generate HTML API documentation and open it in a browser",
+    "doc:json": "Generate API documentation in typedoc JSON format",
+    "publish": "Publish the built app to gh-pages",
+    "version": "Bump package.json version, update CHANGELOG.md, tag release",
+    "reset": "Delete all untracked files and reset the repo to the last commit",
+    "prepare-release": "One-step: clean, build, test, publish docs, and prep a release"
+  },
+  "engines": {
+    "node": ">=10.15.0"
+  },
   "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.9",
+    "@types/node": "^11.10.4",
     "@typescript-eslint/eslint-plugin-tslint": "^1.2.0",
     "bitclock-backend": "^1.0.4",
+    "babel-jest": "^24.1.0",
+    "codecov": "^3.1.0",
+    "cz-conventional-changelog": "^2.1.0",
+    "eslint": "^5.15.1",
+    "gh-pages": "^2.0.1",
+    "jest": "^24.1.0",
+    "jest-date-mock": "^1.0.7",
+    "npm-run-all": "^4.1.5",
+    "opn-cli": "^4.0.0",
+    "prettier": "^1.15.2",
+    "standard-version": "^4.4.0",
+    "trash-cli": "^1.4.0",
+    "ts-jest": "^24.0.0",
     "ts-loader": "^5.3.3",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-immutable": "^5.0.0",
+    "typedoc": "^0.13.0",
     "typescript": "^3.2.4",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1"
   },
-  "dependencies": {
-    "eslint": "^5.13.0",
-    "tslint": "^5.12.1"
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }

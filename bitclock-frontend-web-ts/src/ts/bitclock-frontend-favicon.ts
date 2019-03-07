@@ -1,15 +1,17 @@
-import { getCanvas, update as updateCanvas } from "./bitclock-frontend-canvas"
-import {BitTime, UpdateFn} from 'bitclock-backend';
+import { BitTime, UpdateFn } from 'bitclock-backend';
+import { getCanvas, update as updateCanvas } from './bitclock-frontend-canvas';
 
 const updateFavicon: UpdateFn = (bitTime: BitTime): void => {
-    updateCanvas(bitTime);
+  updateCanvas(bitTime);
 
-    let icon: HTMLLinkElement = <HTMLLinkElement>document.getElementById('favicon');
+  const icon: HTMLLinkElement = document.getElementById(
+    'favicon'
+  ) as HTMLLinkElement;
 
-    let newIcon: HTMLLinkElement = <HTMLLinkElement>icon.cloneNode(true);
-    newIcon.href = getCanvas().toDataURL();
+  const newIcon: HTMLLinkElement = icon.cloneNode(true) as HTMLLinkElement;
+  newIcon.href = getCanvas().toDataURL();
 
-    icon.parentNode.replaceChild(newIcon, icon);
+  icon.parentNode.replaceChild(newIcon, icon);
 };
 
 export { updateFavicon as update };
