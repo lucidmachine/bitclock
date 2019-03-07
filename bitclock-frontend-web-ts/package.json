@@ -25,6 +25,7 @@
   "homepage": "https://github.com/lucidmachine/bitclock#readme",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin-tslint": "^1.2.0",
+    "bitclock-backend": "^1.0.4",
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
     "webpack": "^4.29.0",

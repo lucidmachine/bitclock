@@ -1,4 +1,4 @@
-import {UpdateFn, BitDigit, BitTime} from './bitclock';
+import {UpdateFn, BitDigit, BitTime} from 'bitclock-backend';
 
 const buildBitHtml = (bit: number): string =>
     `<div class="bit ${bit ? 'on' : 'off'}">${bit}</div>`;

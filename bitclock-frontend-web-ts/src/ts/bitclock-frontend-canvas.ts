@@ -1,4 +1,4 @@
-import {BitDigit, BitTime, UpdateFn} from './bitclock';
+import {BitDigit, BitTime, UpdateFn} from 'bitclock-backend';
 
 const colorOn = 'rgb(255, 255, 255)';
 const colorOff = 'rgb(0, 0, 0)';

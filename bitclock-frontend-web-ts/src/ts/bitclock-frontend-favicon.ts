@@ -1,5 +1,5 @@
 import { getCanvas, update as updateCanvas } from "./bitclock-frontend-canvas"
-import {BitTime, UpdateFn} from './bitclock';
+import {BitTime, UpdateFn} from 'bitclock-backend';
 
 const updateFavicon: UpdateFn = (bitTime: BitTime): void => {
     updateCanvas(bitTime);
