@@ -1,27 +1,23 @@
 import { BitDigit, BitTime, UpdateFn } from 'bitclock-backend';
 
-const buildBitHtml = (bit: number): string =>
+export const buildBitHtml = (bit: number): string =>
   `<div class="bit ${bit ? 'on' : 'off'}">${bit}</div>`;
 
-const buildBitDigitHtml = (bitDigit: BitDigit): string =>
-  bitDigit
-    .map(
-      (bit: number): string =>
-        `<div class="digit">
-            ${buildBitHtml(bit)}
-        </div>`
-    )
-    .join('');
+export const buildBitDigitHtml = (bitDigit: BitDigit): string => {
+  const bitsHtml = bitDigit.map(bit => buildBitHtml(bit)).join('\n    ');
+  return `  <div class="digit">
+    ${bitsHtml}
+  </div>`;
+};
 
-const buildBitTimeHtml = (bitTime: BitTime): string =>
-  bitTime
-    .map(
-      (bitDigit: BitDigit): string =>
-        `<div class="digit">
-            ${buildBitDigitHtml(bitDigit)}
-        </div>`
-    )
-    .join('');
+export const buildBitTimeHtml = (bitTime: BitTime): string => {
+  const bitDigitsHtml = bitTime
+    .map(bitDigit => buildBitDigitHtml(bitDigit))
+    .join('\n');
+  return `<div class="time">
+${bitDigitsHtml}
+</div>`;
+};
 
 const arrayLikeToArray = (arrayLike: any): ReadonlyArray<any> =>
   [].slice.call(arrayLike);
