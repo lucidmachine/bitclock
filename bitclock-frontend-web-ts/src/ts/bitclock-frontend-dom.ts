@@ -38,4 +38,4 @@ const updateClockDivs: UpdateFn = (bitTime: BitTime): void =>
     updateClockDiv(clockDiv, bitTime)
   );
 
-export { updateClockDivs as update };
+export { updateClockDiv, updateClockDivs as update };

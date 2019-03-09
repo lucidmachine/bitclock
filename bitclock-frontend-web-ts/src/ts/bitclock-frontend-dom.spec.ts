@@ -2,7 +2,9 @@ import { bitTime } from 'bitclock-backend';
 import {
   buildBitDigitHtml,
   buildBitHtml,
-  buildBitTimeHtml
+  buildBitTimeHtml,
+  update,
+  updateClockDiv
 } from './bitclock-frontend-dom';
 
 describe('DOM frontend', () => {
@@ -84,6 +86,47 @@ describe('DOM frontend', () => {
 </div>`;
 
         expect(buildBitTimeHtml(time)).toEqual(expectedBitTimeHtml);
+      });
+    });
+  });
+
+  describe('Update', () => {
+    const timeBeforeUpdate = bitTime(new Date(2019, 0, 1, 12, 34, 56));
+    const timeAfterUpdate = bitTime(new Date(2019, 0, 1, 12, 34, 57));
+
+    describe('given a single clock', () => {
+      it('should replace the content of the "clock-div" with an updated "time"', () => {
+        const clockDiv = document.createElement('div');
+        clockDiv.innerHTML = buildBitTimeHtml(timeBeforeUpdate);
+
+        updateClockDiv(clockDiv, timeAfterUpdate);
+
+        expect(clockDiv.innerHTML).toEqual(buildBitTimeHtml(timeAfterUpdate));
+      });
+    });
+
+    describe('given multiple clocks', () => {
+      it('should replace the content of each "clock-div" with an updated "time"', () => {
+        const container: HTMLDivElement = document.createElement('div');
+        const clockDiv1: HTMLDivElement = document.createElement('div');
+        const clockDiv2: HTMLDivElement = document.createElement('div');
+        clockDiv1.setAttribute('class', 'clock-div');
+        clockDiv2.setAttribute('class', 'clock-div');
+        clockDiv1.innerHTML = buildBitTimeHtml(timeBeforeUpdate);
+        clockDiv2.innerHTML = buildBitTimeHtml(timeBeforeUpdate);
+        const time1 = clockDiv1.childNodes.item(0);
+        const time2 = clockDiv2.childNodes.item(0);
+        document.body.appendChild(container);
+        container.appendChild(clockDiv1);
+        container.appendChild(clockDiv2);
+
+        update(timeAfterUpdate);
+
+        expect(container.childNodes.length).toBe(2);
+        expect(clockDiv1).not.toContain(time1);
+        expect(clockDiv2).not.toContain(time2);
+        expect(clockDiv1.innerHTML).toEqual(buildBitTimeHtml(timeAfterUpdate));
+        expect(clockDiv2.innerHTML).toEqual(buildBitTimeHtml(timeAfterUpdate));
       });
     });
   });
