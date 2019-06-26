@@ -26,7 +26,7 @@
     "test": "run-s build test:*",
     "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
     "test:unit": "jest --env=jsdom",
-    "watch": "run-s clean build:webpack && run-p \"build:webpack-- -w\" \"test:unit -- --watch\"",
+    "watch": "run-s clean build:webpack && run-p \"build:webpack -- -w\" \"test:unit -- --watch\"",
     "cov": "run-s build cov:build && opn build/coverage/index.html",
     "cov:build": "jest --env=jsdom --coverage",
     "cov:send": "codecov",
