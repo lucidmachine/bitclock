@@ -18,19 +18,17 @@
   "bugs": "https://github.com/lucidmachine/bitclock/issues",
   "scripts": {
     "clean": "for d in build test; do if [ -d \"$d\" ]; then rm -r $d; fi; done",
-    "build": "npm run clean && webpack",
-    "fix": "prettier \"src/**/*.ts\" --write",
-    "test": "run-s build test:*",
-    "test:lint": "prettier \"src/**/*.ts\" --list-different",
-    "test:unit": "jest --env=jsdom",
-    "watch": "run-s clean build:webpack && run-p \"build:webpack -- -w\" \"test:unit -- --watch\"",
-    "cov": "run-s build cov:build && firefox build/coverage/index.html",
-    "cov:build": "jest --env=jsdom --coverage",
-    "publish": "run-s build && gh-pages -m \"[ci skip] Updates\" -d dist",
-    "version": "standard-version",
     "reset": "git clean -dfx && git reset --hard && npm i",
-    "all": "run-s reset test doc:html",
-    "prepare-release": "run-s all version publish"
+    "fix": "prettier \"src/**/*.ts\" --write",
+    "build": "npm run clean && webpack",
+    "test:unit": "jest --env=jsdom",
+    "test": "npm run build && npm run test:unit",
+    "watch": "npm run clean && npm run build && webpack --watch & jest --env=jsdom --watch & wait",
+    "cov": "npm run build && jest --env=jsdom --coverage && firefox build/coverage/index.html",
+    "version": "standard-version",
+    "publish": "npm run build && gh-pages -m \"[ci skip] Updates\" -d dist",
+    "all": "npm run reset && npm run test",
+    "prepare-release": "npm run all version publish"
   },
   "engines": {
     "node": ">=10.15.0"
@@ -47,7 +45,6 @@
     "gh-pages": "^2.2.0",
     "jest": "^26.1.0",
     "jest-date-mock": "^1.0.8",
-    "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "standard-version": "^8.0.2",
     "ts-jest": "^26.1.3",
