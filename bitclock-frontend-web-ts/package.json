@@ -17,13 +17,13 @@
   "homepage": "https://github.com/lucidmachine/bitclock#readme",
   "bugs": "https://github.com/lucidmachine/bitclock/issues",
   "scripts": {
-    "clean": "for d in build test; do if [ -d \"$d\" ]; then rm -r $d; fi; done",
     "reset": "git clean -dfx && git reset --hard && npm i",
+    "clean": "for d in build test; do if [ -d \"$d\" ]; then rm -r $d; fi; done",
     "fix": "prettier \"src/**/*.ts\" --write",
     "build": "npm run clean && webpack",
     "test:unit": "jest --env=jsdom",
     "test": "npm run build && npm run test:unit",
-    "watch": "npm run clean && npm run build && webpack --watch & jest --env=jsdom --watch & wait",
+    "watch": "npm run build && webpack --watch & jest --env=jsdom --watch & wait",
     "cov": "npm run build && jest --env=jsdom --coverage && firefox build/coverage/index.html",
     "publish": "npm run build && gh-pages -m \"[ci skip] Updates\" -d dist"
   },
