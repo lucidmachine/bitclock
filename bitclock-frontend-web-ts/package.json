@@ -25,9 +25,7 @@
     "test": "npm run build && npm run test:unit",
     "watch": "npm run clean && npm run build && webpack --watch & jest --env=jsdom --watch & wait",
     "cov": "npm run build && jest --env=jsdom --coverage && firefox build/coverage/index.html",
-    "publish": "npm run build && gh-pages -m \"[ci skip] Updates\" -d dist",
-    "all": "npm run reset && npm run test",
-    "prepare-release": "npm run all publish"
+    "publish": "npm run build && gh-pages -m \"[ci skip] Updates\" -d dist"
   },
   "engines": {
     "node": ">=10.15.0"
