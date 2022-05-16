@@ -1,6 +1,6 @@
 {
   "name": "bitclock",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A clock made of binary integers to help you practice reading binary.",
   "author": "Eric Slenk <lucid.machine@gmail.com>",
   "license": "MIT",
